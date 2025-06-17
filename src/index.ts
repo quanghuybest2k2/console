@@ -1,13 +1,15 @@
-import NotificationFactory from './factory/NotificationFactory';
+import os from 'os';
+import Dialog from './factory_method/Dialog';
+import WindowsDialog from './factory_method/WindowsDialog';
+import MacDialog from './factory_method/MacDialog';
+let dialog: Dialog;
 
-const notify = (type: string, email: string, message: string) => {
-  const notification = NotificationFactory.create(type);
-  if (notification) {
-    notification.send(email, message);
-  } else {
-    console.error('Notification type not supported');
-  }
-};
+const platform = os.platform(); // 'win32', 'darwin', 'linux', etc.
 
-notify('email', 'quanghuybest@gmail.com', 'Chào, thông báo test đến email!');
-notify('sms', '0987654321', 'Chào, thông báo test đến sms!');
+if (platform === 'win32') {
+  dialog = new WindowsDialog();
+} else {
+  dialog = new MacDialog();
+}
+
+dialog.renderWindow();
