@@ -1,12 +1,7 @@
-import UserService from './observer/UserService';
-import EmailService from './observer/emailService';
-import LogService from './observer/logService';
-import AdminNotificationService from './observer/adminNotificationService';
+import MediaPlayer from './adapter/MediaPlayer';
+import VlcAdapter from './adapter/VlcAdapter';
 
-const userService = new UserService();
-
-userService.registerObserver(new EmailService());
-userService.registerObserver(new LogService());
-userService.registerObserver(new AdminNotificationService());
-
-userService.registerUser('quanghuybest2k2');
+const player: MediaPlayer = new VlcAdapter();
+player.play('vlc', 'video.vlc');
+player.play('mp4', 'video.mp4');
+// output: Playing vlc file. Name: video.vlc
